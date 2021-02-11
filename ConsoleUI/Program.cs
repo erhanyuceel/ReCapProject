@@ -1,63 +1,55 @@
-﻿// DataAccess ürünü ekleyecek
-// Business kontrol edecek
-// Console ürünü gösterecek
-// Entities yardımcı katmanımız olacak. Diğer 3 katman bu entities'i kullanacak
-
-using Business.Concrete;
-using DataAccess.Concrete.InMemory;
+﻿using Business.Concrete;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
 
-namespace Console
+namespace ConsoleUI
 {
     class Program
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new InMemoryCarDal());
+            CarManager carManager = new CarManager(new EfCarDal());
 
-            foreach (var car in carManager.GetAll())
+            Console.WriteLine("Öncesinde: ");
+            foreach (var c in carManager.GetAll())
             {
-                System.Console.WriteLine(car.DailyPrice + " ve " + car.ModelYear);
-
+                Console.WriteLine(c.Id + " " + c.Descriptions + " Günlük Fiyat: " + c.DailyPrice + "$");
             }
-
-
-            //Araç ekleme
-            Car car1 = new Car() { Id = 5, BrandId = 3, ColorId = 18, DailyPrice = 500, Description = "test yeni ekle", ModelYear = 2021 };
-            carManager.Add(car1);
-
-            foreach (var car in carManager.GetAll())
+            Car car = new Car {BrandId = 3, ColorId = 1, DailyPrice = 120, Descriptions = "Porsche", ModelYear = 2021 };
+            carManager.Add(car);
+            Console.WriteLine("İşlem ekledikten sonra: ");
+            foreach (var c in carManager.GetAll())
             {
-                System.Console.WriteLine(car.Id + " ," + car.BrandId + " ," + car.ColorId + " ," + car.DailyPrice + " ," + car.ModelYear + " ," + car.Description);
-
+                Console.WriteLine(c.Id + " " + c.Descriptions + " Günlük Fiyat: " + c.DailyPrice + "$");
             }
-
-            //Araç Güncelleme
-
-            Car car2 = new Car() { Id = 1, BrandId = 1, ColorId = 45, DailyPrice = 300, ModelYear = 2017, Description = "test güncelle" };
-
-
-            foreach (var car in carManager.GetAll())
+            car.DailyPrice = 100;
+            carManager.Update(car);
+            Console.WriteLine("İşlemi güncelledikten sonra: ");
+            foreach (var c in carManager.GetAll())
             {
-                if (car.Id.Equals(1))
-                {
-                    System.Console.WriteLine(car.Id + " ," + car.BrandId + " ," + car.ColorId + " ," + car.DailyPrice + " ," + car.ModelYear + " ," + car.Description);
-                    carManager.Update(car2);
-                    System.Console.WriteLine(Environment.NewLine);
-                }
-                System.Console.WriteLine(car.Id + " ," + car.BrandId + " ," + car.ColorId + " ," + car.DailyPrice + " ," + car.ModelYear + " ," + car.Description);
-
-
+                Console.WriteLine(c.Id + " " + c.Descriptions + " Günlük Fiyat: " + c.DailyPrice + "$");
             }
-
-            //Araç silme
-            carManager.Delete(car1);
-            foreach (var car in carManager.GetAll())
+            carManager.Delete(car);
+            Console.WriteLine("Silme işleminden sonra:");
+            foreach (var c in carManager.GetAll())
             {
-                System.Console.WriteLine(car.Id + " ," + car.BrandId + " ," + car.ColorId + " ," + car.DailyPrice + " ," + car.ModelYear + " ," + car.Description);
-
+                Console.WriteLine(c.Id + " " + c.Descriptions + " Günlük Fiyat: " + c.DailyPrice + "$");
             }
+            Console.WriteLine("-----------------------------------------------");
+
+            foreach (var c in carManager.GetCarsByBrandId(3))
+            {
+                Console.WriteLine(c.Descriptions);
+            }
+            Console.WriteLine("-----------------------------------------------");
+
+            foreach (var c in carManager.GetCarsByColorId(1))
+            {
+                Console.WriteLine(c.Descriptions);
+            }
+            Console.WriteLine("-----------------------------------------------");
+
 
         }
     }

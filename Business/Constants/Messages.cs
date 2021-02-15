@@ -16,5 +16,6 @@ namespace Business.Constants
         public static string ColorsListed = "Renkler listelendi";
         internal static string CustomerListed = "Müşteriler listelendi";
         internal static string RentalListed = "Kiralık Arabalar listelendi";
+        internal static string SuccessfullOperation = "İşlem Başarılı";
     }
 }

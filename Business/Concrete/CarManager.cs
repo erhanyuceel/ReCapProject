@@ -21,10 +21,10 @@ namespace Business.Concrete
 
         public IResult Add(Car car)
         {
-            if (car.Descriptions.Length >= 2 && car.DailyPrice > 0)
-            {
-                return new ErrorResult(Messages.NameInvalid);
-            }
+            //if (car.Descriptions.Length >= 2 && car.DailyPrice > 0)
+            //{
+            //    return new ErrorResult(Messages.NameInvalid);
+            //}
             _carDal.Add(car);
             return new SuccessResult(Messages.Added);
         }
@@ -68,6 +68,11 @@ namespace Business.Concrete
                 return new ErrorDataResult<List<CarDetailDto>>(Messages.MaintenanceTime);
             }
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+        }
+
+        public IDataResult<Car> GetById(int carId)
+        {
+            return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == carId), Messages.CarsListed);
         }
     }
 }

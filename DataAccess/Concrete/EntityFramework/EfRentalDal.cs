@@ -10,6 +10,7 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
+
     public class EfRentalDal : EfEntityRepositoryBase<Rental, ReCapContext>, IRentalDal
     {
         public List<RentalDetailDto> GetRentDetails(Expression<Func<Rental, bool>> filter = null)
@@ -24,15 +25,15 @@ namespace DataAccess.Concrete.EntityFramework
                              select new RentalDetailDto
                              {
                                  CarName = c.CarName,
-                                 CustomerName = u.FirstName + u.LastName,
                                  CompanyName = cu.CompanyName,
+                                 CustomerName = u.FirstName + u.LastName,
                                  RentDate = r.RentDate,
-                                 ReturnDate = r.ReturnDate,
+                                 ReturnDate = r.ReturnDate
                              };
                 return result.ToList();
 
             }
-
         }
     }
+    
 }

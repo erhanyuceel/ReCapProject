@@ -6,12 +6,12 @@ using System.Text;
 
 namespace Business.ValidationRules.FluentValidation
 {
-    public class RentalValidator : AbstractValidator<Rental>
+    class ColorValidator : AbstractValidator<Color>
     {
-        public RentalValidator()
+        public ColorValidator()
         {
-            RuleFor(r => r.RentDate).NotEmpty();
-            RuleFor(r => r.ReturnDate).Null();
+            RuleFor(c => c.ColorName).NotEmpty();
+            RuleFor(c => c.ColorName).MinimumLength(2);
         }
     }
 }

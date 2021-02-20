@@ -23,7 +23,7 @@ namespace Business.Concrete
             _rentalDal = rentalDal;
         }
 
-        [ValidationAspect(typeof(RentalValidator))]
+        [ValidationAspect(typeof(RentalsValidator))]
         public IResult Add(Rental rental)
         {
             //var result = CheckReturnDate(rental.CarId);

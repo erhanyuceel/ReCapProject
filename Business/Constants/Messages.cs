@@ -17,5 +17,6 @@ namespace Business.Constants
         internal static string CustomerListed = "Müşteriler listelendi";
         internal static string RentalListed = "Kiralık Arabalar listelendi";
         internal static string SuccessfullOperation = "İşlem Başarılı";
+        internal static string ImageLimitAlert = "Yükleme limiti 5'tir.";
     }
 }

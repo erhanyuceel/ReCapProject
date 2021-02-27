@@ -20,8 +20,9 @@ namespace ConsoleUI
             //RentAddTest();
             //RentUpdateTest();
             //RentList();
-            RentDetailsTest();
+            //RentDetailsTest();
             //AddRentTest();
+            CarImagesTest();
         }
 
         private static void AddRentTest()
@@ -164,6 +165,15 @@ namespace ConsoleUI
             foreach (var brand in brandManager.GetAll().Data)
             {
                 Console.WriteLine(brand.BrandName);
+            }
+        }
+
+        private static void CarImagesTest()
+        {
+            CarImageManager carImageManager = new CarImageManager(new EfCarImageDal());
+            foreach (var carImage in carImageManager.GetAll().Data)
+            {
+                Console.WriteLine(carImage.CarId);
             }
         }
     }

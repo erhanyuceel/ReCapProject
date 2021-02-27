@@ -25,7 +25,7 @@ namespace Business.Concrete
             _carImageDal = carImageDal;
         }
 
-        [ValidationAspect(typeof(CarImageValidator))]
+        //[ValidationAspect(typeof(CarImageValidator))]
         public IResult Add(IFormFile file, CarImage carImage)
         {
             IResult result = BusinessRules.Run(
@@ -41,6 +41,7 @@ namespace Business.Concrete
             carImage.Date = DateTime.Now;
             _carImageDal.Add(carImage);
             return new SuccessResult();
+
         }
 
         [ValidationAspect(typeof(CarImageValidator))]

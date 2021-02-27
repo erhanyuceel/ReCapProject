@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CarImagesController : ControllerBase
     {
         ICarImageService _carImageService;
@@ -58,6 +60,7 @@ namespace WebAPI.Controllers
         [HttpPost("add")]
         public IActionResult AddAsync([FromForm(Name = ("Image"))] IFormFile file, [FromForm] CarImage carImage)
         {
+            
             var result = _carImageService.Add(file, carImage);
 
             if (result.Success)

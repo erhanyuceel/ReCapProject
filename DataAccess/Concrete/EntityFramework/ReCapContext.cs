@@ -12,7 +12,7 @@ namespace DataAccess.Concrete.EntityFramework
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //DB'ye bağlandığımız yer
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=ReCap;Trusted_Connection=true");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=RentacarsDB;Trusted_Connection=true");
         }
 
         //public DbSet<Entity ismi> db de tablo ismi { get; set; }

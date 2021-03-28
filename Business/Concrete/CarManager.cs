@@ -60,19 +60,19 @@ namespace Business.Concrete
             return new SuccessResult(Messages.Updated);
         }
 
-        public IDataResult<List<Car>> GetByBrandID(int brandId)
+        public IDataResult<List<CarDetailDto>> GetByBrandID(int brandId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.BrandId == brandId));
         }
 
-        public IDataResult<List<Car>> GetByColorID(int colorId)
+        public IDataResult<List<CarDetailDto>> GetByColorID(int colorId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.ColorId == colorId));
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            if (DateTime.Now.Hour == 18)
+            if (DateTime.Now.Hour == 1)
             {
                 return new ErrorDataResult<List<CarDetailDto>>(Messages.MaintenanceTime);
             }
@@ -84,6 +84,10 @@ namespace Business.Concrete
         public IDataResult<Car> GetById(int carId)
         {
             return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == carId), Messages.CarsListed);
+        }
+        public IDataResult<CarDetailDto> GetCarDetailsById(int carId)
+        {
+            return new SuccessDataResult<CarDetailDto>(_carDal.GetCarDetailsById(carId), Messages.CarsListed);
         }
 
         [TransactionScopeAspect]

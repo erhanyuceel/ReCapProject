@@ -32,6 +32,10 @@ namespace DataAccess.Concrete.EntityFramework
                                  DailyPrice = c.DailyPrice,
                                  Descriptions = c.Descriptions,
                                  ModelYear = c.ModelYear,
+                                 Available = !context.Rentals.Any(r => r.CarId == c.Id && (r.ReturnDate == null || r.ReturnDate > DateTime.Now)),
+                                 ImagePath = (from img in context.CarImages
+                                              where (c.Id == img.CarId)
+                                              select img.ImagePath).ToArray()
                              };
 
                 return result.ToList();
@@ -57,6 +61,10 @@ namespace DataAccess.Concrete.EntityFramework
                                  DailyPrice = c.DailyPrice,
                                  Descriptions = c.Descriptions,
                                  ModelYear = c.ModelYear,
+                                 Available = !context.Rentals.Any(r => r.CarId == c.Id && (r.ReturnDate == null || r.ReturnDate > DateTime.Now)),
+                                 ImagePath = (from img in context.CarImages
+                                              where (c.Id == img.CarId)
+                                              select img.ImagePath).ToArray()
                              };
                 return result.SingleOrDefault();
             }

@@ -30,7 +30,9 @@ namespace DataAccess.Concrete.EntityFramework
                                  CompanyName = cu.CompanyName,
                                  CustomerName = u.FirstName +" "+ u.LastName,
                                  RentDate = r.RentDate,
-                                 ReturnDate = r.ReturnDate
+                                 ReturnDate = r.ReturnDate,
+                                 DailyPrice = r.DailyPrice,
+                                 TotalPrice = r.TotalPrice,
                              };
                 return result.ToList();
 

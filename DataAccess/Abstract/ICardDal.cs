@@ -1,4 +1,5 @@
 ﻿using Core.DataAccess;
+using Entities.Concrete;
 using Entity.Concrete;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace DataAccess.Abstract
 {
-    public interface ICardDal : IEntityRepository<CreditCard>
+    public interface ICardDal : IEntityRepository<Card>
     {
     }
 }

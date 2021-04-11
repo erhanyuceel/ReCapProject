@@ -80,7 +80,7 @@ namespace ConsoleUI
                 CarId = 3,
                 CustomerId = 4,
                 RentDate = new DateTime(2021, 02, 14),
-                ReturnDate = null,
+                ReturnDate = new DateTime(2021, 02, 14)
             });
             Console.WriteLine(result.Message);
         }

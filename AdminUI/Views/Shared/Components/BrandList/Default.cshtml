@@ -1,0 +1,16 @@
+﻿@model AdminUI.Models.BrandListViewModel
+
+<table class="table table-bordered">
+    <tr>
+        <td>Id</td>
+        <td>Marka</td>
+    </tr>
+    @foreach (var brand in Model.Brands.Data)
+    {
+        <tr>
+            <td>@brand.BrandId</td>
+            <td>@brand.BrandName</td>
+        </tr>
+    }
+
+</table>

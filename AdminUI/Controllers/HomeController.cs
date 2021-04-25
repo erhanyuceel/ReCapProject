@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 using Business.Abstract;
 using DataAccess.Abstract;
 using Microsoft.AspNetCore.Authorization;
+using Business.BusinessAspects.Autofac;
 
 namespace AdminUI.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

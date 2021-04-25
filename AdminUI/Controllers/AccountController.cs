@@ -29,7 +29,7 @@ namespace AdminUI.Controllers
             var userToLogin = _authService.Login(userForLoginDto);
             if (!userToLogin.Success)
             {
-                ModelState.AddModelError("", "Invalid login!");
+                //ModelState.AddModelError("", "Invalid login!");
             }
 
             var result = _authService.CreateAccessToken(userToLogin.Data);

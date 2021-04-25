@@ -10,11 +10,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Business.Concrete;
+using Core.DependencyResolvers;
+using Core.Extensions;
+using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 
 namespace AdminUI
@@ -38,9 +42,12 @@ namespace AdminUI
             services.AddScoped<IUserDal, EfUserDal>();
             services.AddScoped<IAuthService, AuthManager>();
             services.AddScoped<ITokenHelper, JwtHelper>();
-            
 
             services.AddSession();
+            services.AddDistributedMemoryCache();
+            services.AddMvc();
+            services.AddControllersWithViews();
+
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -57,9 +64,9 @@ namespace AdminUI
                         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                     };
                 });
-            services.AddDistributedMemoryCache();
-            services.AddMvc();
-            services.AddControllersWithViews();
+            services.AddDependencyResolvers(new ICoreModule[] {
+                new CoreModule()
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,11 +87,13 @@ namespace AdminUI
 
             app.UseRouting();
 
+            app.UseSession();
+
             app.UseAuthentication();
 
             app.UseAuthorization();
 
-            app.UseSession();
+            
 
             app.UseEndpoints(endpoints =>
             {

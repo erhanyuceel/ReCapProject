@@ -40,8 +40,6 @@ namespace AdminUI
             services.AddScoped<IBrandDal, EfBrandDal>();
             services.AddScoped<IUserService, UserManager>();
             services.AddScoped<IUserDal, EfUserDal>();
-            services.AddScoped<IAuthService, AuthManager>();
-            services.AddScoped<ITokenHelper, JwtHelper>();
 
             services.AddSession();
             services.AddDistributedMemoryCache();
@@ -64,9 +62,9 @@ namespace AdminUI
                         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                     };
                 });
-            services.AddDependencyResolvers(new ICoreModule[] {
-                new CoreModule()
-            });
+
+            services.AddScoped<IAuthService, AuthManager>();
+            services.AddScoped<ITokenHelper, JwtHelper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,9 +81,15 @@ namespace AdminUI
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseSession();
 
@@ -93,7 +97,6 @@ namespace AdminUI
 
             app.UseAuthorization();
 
-            
 
             app.UseEndpoints(endpoints =>
             {
